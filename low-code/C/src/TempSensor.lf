@@ -1,0 +1,31 @@
+/**
+ * This is a first experiment with using Cody and Anthropy Claude to generate reaction code.
+ * The idea is to rely on codebase embeddings to generate the reactors code.
+ * 
+ * The developper has little knowledge about the Lingua Franca language.
+
+ * 
+ * @author Moez Ben Hajhmida
+ */
+
+ target C
+
+ /**
+   * User generated prompt:
+   *
+   * Add a reactor TempSensor that outputs a random temperature value
+   * between 5 and 35 each second.
+   */
+reactor TempSensor {
+
+  output temp
+
+  timer one_second
+
+  reaction(one_second) -> temp {
+    int randomValue = rand() % 31 + 5;
+    temp.set(randomValue); 
+  }
+
+}
+
