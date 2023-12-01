@@ -11,21 +11,25 @@
  target C
 
  /**
+
    * User generated prompt:
    *
    * Add a reactor TempSensor that outputs a random temperature value
    * between 5 and 35 each second.
    */
-reactor TempSensor {
 
-  output temp
+   reactor TempSensor {
 
-  timer one_second
-
-  reaction(one_second) -> temp {
-    int randomValue = rand() % 31 + 5;
-    temp.set(randomValue); 
+    output temp: int
+  
+    reaction(startup) -> temp {
+      srand(time(NULL));
+    }
+  
+    timer oneSec(0, 1 sec)  
+    reaction(oneSec) -> temp {
+      int randomValue = rand() % 31 + 5;
+      lf_set(temp, randomValue); 
+    }
+  
   }
-
-}
-
